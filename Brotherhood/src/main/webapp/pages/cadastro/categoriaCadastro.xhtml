@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" >
+
+	<h:head>
+		<link type="text/css" rel="stylesheet" href="/Brotherhood/faces/style/principal.css" />
+	</h:head>
+
+	<body>
+		<ui:include src="../../menu.xhtml" />
+		<div id="conteudo">
+			<h:form prependId="false">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<h:panelGroup id="camposCadastro">
+					<p:fieldset legend="#{(empty categoriaCadastroBean.categoria.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
+						<h:panelGroup rendered="#{not empty categoriaCadastroBean.categoria.id}">
+							<h:panelGrid columns="2" style="margin-bottom:10px">
+								<h:outputText for="id" value="Id:" />
+								<p:inputText id="id" value="#{categoriaCadastroBean.categoria.id}" disabled="true"/>
+							</h:panelGrid>
+						</h:panelGroup>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="titulo" value="titulo :" />
+							<p:inputText id="titulo" value="#{categoriaCadastroBean.categoria.titulo}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+			    			<p:outputLabel for="bebida" value="Bebida? " />
+			        		<p:selectBooleanCheckbox id="bebida" value="#{categoriaCadastroBean.categoria.bebida}" />
+		        		</h:panelGrid>
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<p:commandButton 
+											styleClass="button" 
+											id="commit" 
+											update="camposCadastro tabelaTipos" 
+											actionListener="#{produtoTipoCadastroBean.salvar}" 
+											ajax="true" 
+											value="Salvar Tipo Produto"/>
+											
+						   <p:commandButton styleClass="button" 
+											 id="cancelarBTN" 
+											 actionListener="#{produtoTipoCadastroBean.construirProdutoTipo()}" 
+											 ajax="false" 
+											 value="Cancelar"/>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:panelGroup>
+				<p:fieldset legend="Listagem de Tipos de Produtos" toggleable="true" toggleSpeed="500">
+        			<p:dataTable id="tabelaCategorias" var="categoria" value="#{categoriaCadastroBean.categorias}" rowIndexVar="i" emptyMessage="Nenhum tipo cadastrado">
+					    <p:column headerText="Id">
+					        <h:outputText value="#{categoria.id}" />
+					    </p:column>
+					 á Priscila, boa tarde. Gostaria de verificar contigo como posso conseguir uma espécie de extrato dos procedimentos da unimed que vêm descontados na folha, para eu saber exatamente quais itens vier
+					    <p:column headerText="titulo">
+					        <h:outputText value="#{categoria.nome}" />
+					    </p:column>
+					    
+					    <p:column headerText="Bebida">
+					        <h:outputText value="#{categoria.bebida ? 'SIM' : 'NÃO' }" />
+					    </p:column>
+					    
+					    <p:column headerText="Opções">
+					        <p:commandLink 	disabled="#{categoria.situacao eq 'INATIVO'}"
+					        				action="#{produtoTipoCadastroBean.editar(i)}" 
+					        				update="camposCadastro" 
+					        				value="Editar" 
+					        				style="margin-right: 10px;"/>
+					        				
+					        <p:commandLink  rendered="#{categoria.situacao eq 'ATIVO'}"
+					        				action="#{produtoTipoCadastroBean.inativar(i)}" 
+					        				update="tabelaTipos" 
+					        				value="Inativar" />
+					        				
+   					        <p:commandLink  rendered="#{categoria.situacao eq 'INATIVO'}"
+					        				action="#{produtoTipoCadastroBean.reativar(i)}" 
+					        				update="tabelaTipos" 
+					        				value="Reativar" />
+					    </p:column>
+					</p:dataTable>
+	    		</p:fieldset>
+    		</h:form>
+		</div>
+	</body>
+	
+</html>
