@@ -1,72 +1,63 @@
 package br.com.brotherhood.bean;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-
 import org.hibernate.Session;
-
-import br.com.brotherhood.entidade.Produto;
-import br.com.brotherhood.entidade.ProdutoTipo;
+import br.com.brotherhood.entidade.Categoria;
 import br.com.brotherhood.hibernate.HibernateUtil;
+import br.com.brotherhood.negocio.NegocioException;
 
 @ViewScoped
 @ManagedBean
-public class CategoriaCadastroBean {
-
-	private Produto produto;
-	private List<ProdutoTipo> produtosTipos;
+public class CategoriaCadastroBean extends BaseBean {
+	
+	private CategoriaNegocio categoriaNegocio;
+	private Categoria categoria;
+	private List<Categoria> categorias;
 	
 	@PostConstruct
 	public void inicializar() {
-		construirProduto();
-		carregarProdutosTipos();
+		construirCategoria();
+		carregarCategorias();
 	}
 	
-	private void construirProduto() {
-		produto = new Produto();
-		produto.setProdutoTipo(new ProdutoTipo());
+	public void construirCategoria() {
+		categoria = new Categoria();
 	}
 
 	@SuppressWarnings("unchecked")
-	private void carregarProdutosTipos() {
+	private void carregarCategorias() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		produtosTipos = (List<ProdutoTipo>) session.createQuery("FROM ProdutoTipo pt ORDER BY pt.nome ").list();
+		categorias = (List<Categoria>) session.createQuery("FROM Categoria c ORDER BY c.descricao ").list();
 	}
 	
 	public void salvar() {
-		
-		if ((produto.getProdutoTipo().getId() == null)) {
-			makeMessage(FacesMessage.SEVERITY_WARN, "Selecione o Tipo!", "");
+		try {
+			categoriaNegocio.salvar(categoria);
+			makeInfoMessage("Categoria cadastrada com sucesso!", "");
+		} catch (NegocioException e) {
+			e.printStackTrace();
+			makeWarnMessage(e.getMessage(), "ERRO");
 		}
-		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(produto);
-        session.getTransaction().commit();
-        
-        construirProduto();
-        makeMessage(FacesMessage.SEVERITY_INFO, "Produto cadastrado com sucesso!", "");
+        construirCategoria();
 	}
 	
-	private void makeMessage(Severity severity, String message, String title) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, title));
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 	
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public List<ProdutoTipo> getProdutosTipos() {
-		return produtosTipos;
-	}
 }

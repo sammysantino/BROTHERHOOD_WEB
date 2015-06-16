@@ -29,40 +29,36 @@
 							<p:inputText id="titulo" value="#{categoriaCadastroBean.categoria.titulo}" />
 						</h:panelGrid>
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-			    			<p:outputLabel for="bebida" value="Bebida? " />
-			        		<p:selectBooleanCheckbox id="bebida" value="#{categoriaCadastroBean.categoria.bebida}" />
-		        		</h:panelGrid>
+							<h:outputText for="titulo" value="descrição :" />
+							<p:inputText id="titulo" value="#{categoriaCadastroBean.categoria.descricao}" />
+						</h:panelGrid>
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
 											styleClass="button" 
 											id="commit" 
-											update="camposCadastro tabelaTipos" 
-											actionListener="#{produtoTipoCadastroBean.salvar}" 
+											update="camposCadastro tabelaCategorias" 
+											actionListener="#{categoriaCadastroBean.salvar}" 
 											ajax="true" 
 											value="Salvar Tipo Produto"/>
 											
 						   <p:commandButton styleClass="button" 
 											 id="cancelarBTN" 
-											 actionListener="#{produtoTipoCadastroBean.construirProdutoTipo()}" 
+											 actionListener="#{categoriaCadastroBean.construirCategoria()}" 
 											 ajax="false" 
 											 value="Cancelar"/>
 						</h:panelGrid>
 					</p:fieldset>
 				</h:panelGroup>
-				<p:fieldset legend="Listagem de Tipos de Produtos" toggleable="true" toggleSpeed="500">
-        			<p:dataTable id="tabelaCategorias" var="categoria" value="#{categoriaCadastroBean.categorias}" rowIndexVar="i" emptyMessage="Nenhum tipo cadastrado">
+				<p:fieldset legend="Listagem de Categorias" toggleable="true" toggleSpeed="500">
+        			<p:dataTable id="tabelaCategorias" var="categoria" value="#{categoriaCadastroBean.categorias}" rowIndexVar="i" emptyMessage="Nenhuma categoria cadastrada">
 					    <p:column headerText="Id">
 					        <h:outputText value="#{categoria.id}" />
 					    </p:column>
-					 á Priscila, boa tarde. Gostaria de verificar contigo como posso conseguir uma espécie de extrato dos procedimentos da unimed que vêm descontados na folha, para eu saber exatamente quais itens vier
 					    <p:column headerText="titulo">
-					        <h:outputText value="#{categoria.nome}" />
+					        <h:outputText value="#{categoria.titulo}" />
 					    </p:column>
 					    
-					    <p:column headerText="Bebida">
-					        <h:outputText value="#{categoria.bebida ? 'SIM' : 'NÃO' }" />
-					    </p:column>
-					    
+					    <ui:remove>
 					    <p:column headerText="Opções">
 					        <p:commandLink 	disabled="#{categoria.situacao eq 'INATIVO'}"
 					        				action="#{produtoTipoCadastroBean.editar(i)}" 
@@ -80,6 +76,7 @@
 					        				update="tabelaTipos" 
 					        				value="Reativar" />
 					    </p:column>
+					    </ui:remove>
 					</p:dataTable>
 	    		</p:fieldset>
     		</h:form>

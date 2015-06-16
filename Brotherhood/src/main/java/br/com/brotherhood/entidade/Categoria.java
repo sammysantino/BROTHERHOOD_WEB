@@ -16,6 +16,18 @@ public class Categoria {
 	private String titulo;
 	private String descricao;
 	
+	public void validar() throws ValidacaoException {
+		if ((this.titulo == null) 
+				|| (this.titulo.isEmpty())) {
+			throw new ValidacaoException("Título é obrigatório!");
+		}
+		
+		if ((this.descricao == null) 
+				|| (this.descricao.isEmpty())) {
+			throw new ValidacaoException("Descrição é obrigatória!");
+		}
+	}
+	
 	public Integer getId() {
 		return id;
 	}
