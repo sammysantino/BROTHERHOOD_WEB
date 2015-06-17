@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ForeignKey;
-
 @Entity
 @Table(name="preferencia")
 public class Preferencia {
@@ -22,6 +20,9 @@ public class Preferencia {
 	private Integer id;
 	private String titulo;
 	private String descricao;
+	
+	@Enumerated(EnumType.STRING)
+	private ESituacao situacao;
 	
 	@Enumerated(EnumType.STRING)
 	private ETipoPreferencia tipoPreferencia;
@@ -60,5 +61,21 @@ public class Preferencia {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public ESituacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(ESituacao situacao) {
+		this.situacao = situacao;
+	}
+
+	public ETipoPreferencia getTipoPreferencia() {
+		return tipoPreferencia;
+	}
+
+	public void setTipoPreferencia(ETipoPreferencia tipoPreferencia) {
+		this.tipoPreferencia = tipoPreferencia;
 	}
 }
