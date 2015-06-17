@@ -29,17 +29,17 @@
 							<p:inputText id="titulo" value="#{categoriaCadastroBean.categoria.titulo}" />
 						</h:panelGrid>
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="titulo" value="descrição :" />
-							<p:inputText id="titulo" value="#{categoriaCadastroBean.categoria.descricao}" />
+							<h:outputText for="descricao" value="descrição :" />
+							<p:inputText id="descricao" value="#{categoriaCadastroBean.categoria.descricao}" />
 						</h:panelGrid>
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
 											styleClass="button" 
 											id="commit" 
 											update="camposCadastro tabelaCategorias" 
-											actionListener="#{categoriaCadastroBean.salvar}" 
+											actionListener="#{categoriaCadastroBean.salvar()}" 
 											ajax="true" 
-											value="Salvar Tipo Produto"/>
+											value="Salvar"/>
 											
 						   <p:commandButton styleClass="button" 
 											 id="cancelarBTN" 
@@ -58,25 +58,23 @@
 					        <h:outputText value="#{categoria.titulo}" />
 					    </p:column>
 					    
-					    <ui:remove>
 					    <p:column headerText="Opções">
 					        <p:commandLink 	disabled="#{categoria.situacao eq 'INATIVO'}"
-					        				action="#{produtoTipoCadastroBean.editar(i)}" 
+					        				action="#{categoriaCadastroBean.editar(categoria)}" 
 					        				update="camposCadastro" 
 					        				value="Editar" 
 					        				style="margin-right: 10px;"/>
 					        				
 					        <p:commandLink  rendered="#{categoria.situacao eq 'ATIVO'}"
-					        				action="#{produtoTipoCadastroBean.inativar(i)}" 
-					        				update="tabelaTipos" 
+					        				action="#{categoriaCadastroBean.inativar(categoria)}" 
+					        				update="tabelaCategorias" 
 					        				value="Inativar" />
 					        				
    					        <p:commandLink  rendered="#{categoria.situacao eq 'INATIVO'}"
-					        				action="#{produtoTipoCadastroBean.reativar(i)}" 
-					        				update="tabelaTipos" 
+					        				action="#{produtoTipoCadastroBean.reativar(categoria)}" 
+					        				update="tabelaCategorias" 
 					        				value="Reativar" />
 					    </p:column>
-					    </ui:remove>
 					</p:dataTable>
 	    		</p:fieldset>
     		</h:form>

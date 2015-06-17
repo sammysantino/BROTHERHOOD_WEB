@@ -1,6 +1,8 @@
 package br.com.brotherhood.entidade;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,9 @@ public class Categoria {
 	private Integer id;
 	private String titulo;
 	private String descricao;
+	
+	@Enumerated(EnumType.STRING)
+	private ESituacao situacao = ESituacao.ATIVO;
 	
 	public void validar() throws ValidacaoException {
 		if ((this.titulo == null) 
@@ -45,5 +50,13 @@ public class Categoria {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public ESituacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(ESituacao situacao) {
+		this.situacao = situacao;
 	}
 }

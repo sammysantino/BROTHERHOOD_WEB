@@ -13,7 +13,7 @@ import br.com.brotherhood.negocio.NegocioException;
 @ManagedBean
 public class CategoriaCadastroBean extends BaseBean {
 	
-	private CategoriaNegocio categoriaNegocio;
+	private CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 	private Categoria categoria;
 	private List<Categoria> categorias;
 	
@@ -42,6 +42,19 @@ public class CategoriaCadastroBean extends BaseBean {
 			makeWarnMessage(e.getMessage(), "ERRO");
 		}
         construirCategoria();
+        carregarCategorias();
+	}
+	
+	public void editar(Categoria categoriaSelecionada) {
+		
+	}
+	
+	public void ativar(Categoria categoriaSelecionada) {
+		
+	}
+	
+	public void inativar(Categoria categoriaSelecionada) {
+		
 	}
 	
 	public Categoria getCategoria() {
