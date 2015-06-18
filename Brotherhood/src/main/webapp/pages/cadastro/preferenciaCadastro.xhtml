@@ -16,34 +16,34 @@
 			<h:form prependId="false">
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 				<h:panelGroup id="camposCadastro">
-					<p:fieldset legend="#{(empty preferenciaCadastroBean.categoria.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
-						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.categoria.id}">
+					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
+						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.preferencia.id}">
 							<h:panelGrid columns="2" style="margin-bottom:10px">
 								<h:outputText for="id" value="Id:" />
-								<p:inputText id="id" value="#{preferenciaCadastroBean.categoria.id}" disabled="true"/>
+								<p:inputText id="id" value="#{preferenciaCadastroBean.preferencia.id}" disabled="true"/>
 							</h:panelGrid>
 						</h:panelGroup>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<h:outputText for="titulo" value="titulo :" />
-							<p:inputText id="titulo" value="#{preferenciaCadastroBean.categoria.titulo}" />
+							<p:inputText id="titulo" value="#{preferenciaCadastroBean.preferencia.titulo}" />
 						</h:panelGrid>
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<h:outputText for="descricao" value="descrição :" />
-							<p:inputText id="descricao" value="#{preferenciaCadastroBean.categoria.descricao}" />
+							<p:inputText id="descricao" value="#{preferenciaCadastroBean.preferencia.descricao}" />
 						</h:panelGrid>
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
 											styleClass="button" 
 											id="commit" 
-											update="camposCadastro tabelaCategorias" 
+											update="camposCadastro" 
 											actionListener="#{preferenciaCadastroBean.salvar()}" 
 											ajax="true" 
 											value="Salvar"/>
 											
 						   <p:commandButton styleClass="button" 
 											 id="cancelarBTN" 
-											 actionListener="#{preferenciaCadastroBean.construirCategoria()}" 
+											 actionListener="#{preferenciaCadastroBean.construirPreferencia()}" 
 											 ajax="false" 
 											 value="Cancelar"/>
 						</h:panelGrid>

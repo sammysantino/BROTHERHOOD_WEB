@@ -78,4 +78,8 @@ public class Preferencia {
 	public void setTipoPreferencia(ETipoPreferencia tipoPreferencia) {
 		this.tipoPreferencia = tipoPreferencia;
 	}
+
+	public void validar() throws ValidacaoException {
+		
+	}
 }

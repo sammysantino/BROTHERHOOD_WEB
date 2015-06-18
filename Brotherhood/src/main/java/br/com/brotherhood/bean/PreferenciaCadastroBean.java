@@ -4,7 +4,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import br.com.brotherhood.entidade.ESituacao;
 import br.com.brotherhood.entidade.Preferencia;
+import br.com.brotherhood.entidade.ValidacaoException;
 import br.com.brotherhood.negocio.NegocioException;
 import br.com.brotherhood.negocio.PreferenciaNegocio;
 
@@ -27,18 +29,24 @@ public class PreferenciaCadastroBean extends BaseBean {
 	}
 
 	private void carregarPreferencias() {
-		
+		try {
+			preferencias = preferenciaNegocio.obterTodosPorSituacao(ESituacao.ATIVO);
+		} catch (NegocioException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void salvar() {
 		try {
 			preferenciaNegocio.salvar(preferencia);
-			makeInfoMessage("Categoria cadastrada com sucesso!", "");
+			inicializar();
+			makeInfoMessage("Preferência cadastrada com sucesso!", "");
 		} catch (NegocioException e) {
 			e.printStackTrace();
-			makeWarnMessage(e.getMessage(), "ERRO");
+			makeErrorMessage("ERRO: " + e.getMessage(), "");
+		} catch (ValidacaoException e) {
+			makeWarnMessage(e.getMessage(),"");
 		}
-		inicializar();
 	}
 
 	public Preferencia getPreferencia() {
