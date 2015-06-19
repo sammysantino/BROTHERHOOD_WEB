@@ -2,9 +2,9 @@ package br.com.brotherhood.entidade;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,21 +16,15 @@ public class Resposta {
 	private RespostaPk id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "_ficha_informacao", foreignKey = @ForeignKey(name = "fk_ficha_informacao"), 
-	insertable = false, updatable = false)
-	private FichaInformacao fichaInformacao;
+	@JoinColumn(name = "_usuario", insertable = false, updatable = false)
+	private Usuario usuario;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "_ficha_informacao_pergunta", 
-	foreignKey = @ForeignKey(name = "fk_ficha_informacao_pergunta"), insertable = false, updatable = false)
-	private FichaInformacaoPergunta fichaInformacaoPergunta;
+	@JoinColumn(name = "_preferencia", insertable = false, updatable = false)
+	private Preferencia preferencia;
 	
 	@Column(name = "texto_resposta")
 	private String textoResposta;
 	
-	@ManyToOne
-	private Usuario usuario;
-	
-	//private Preferencia preferencia;
 
 }

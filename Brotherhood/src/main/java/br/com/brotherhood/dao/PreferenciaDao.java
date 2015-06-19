@@ -9,7 +9,7 @@ import br.com.brotherhood.hibernate.HibernateUtil;
 public class PreferenciaDao extends BaseDao {
 
 	@SuppressWarnings("unchecked")
-	public List<Preferencia> consultarTodasPorSituacao(ESituacao ativo) throws DaoException {
+	public List<Preferencia> consultarTodasPorSituacao(ESituacao situacao) throws DaoException {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT p ");
@@ -18,7 +18,9 @@ public class PreferenciaDao extends BaseDao {
 			sql.append("ORDER BY p.titulo ");
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			List<Preferencia> preferencias = session.createQuery(sql.toString()).list();
+			List<Preferencia> preferencias = session.createQuery(sql.toString())
+					.setParameter("_situacao", situacao)
+					.list();
 			session.close();
 			
 			return  preferencias;
