@@ -1,30 +1,36 @@
 package br.com.brotherhood.entidade;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="opcao")
-public class Opcao implements Serializable {
+@Table(name = "resposta_opcao")
+public class RespostaOpcao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String titulo;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "_preferencia")
-	private Preferencia preferencia;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({@JoinColumn (name = "_resposta_usuario", 
+					referencedColumnName = "_usuario"),
+		@JoinColumn (name = "_resposta_preferencia", 
+					referencedColumnName = "_preferencia") })
+	private Resposta resposta;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "_opcao")
+	private Opcao opcao;
 
 	public Integer getId() {
 		return id;
@@ -34,20 +40,20 @@ public class Opcao implements Serializable {
 		this.id = id;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public Resposta getResposta() {
+		return resposta;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setResposta(Resposta resposta) {
+		this.resposta = resposta;
 	}
 
-	public Preferencia getPreferencia() {
-		return preferencia;
+	public Opcao getOpcao() {
+		return opcao;
 	}
 
-	public void setPreferencia(Preferencia preferencia) {
-		this.preferencia = preferencia;
+	public void setOpcao(Opcao opcao) {
+		this.opcao = opcao;
 	}
 
 	@Override
@@ -66,7 +72,7 @@ public class Opcao implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Opcao other = (Opcao) obj;
+		RespostaOpcao other = (RespostaOpcao) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -77,7 +83,8 @@ public class Opcao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Opcao [id=" + id + ", titulo=" + titulo + ", preferencia="
-				+ preferencia + "]";
+		return "RespostaOpcao [id=" + id + ", resposta=" + resposta
+				+ ", opcao=" + opcao + "]";
 	}
+	
 }

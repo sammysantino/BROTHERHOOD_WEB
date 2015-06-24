@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" >
+
+	<h:head>
+		<link type="text/css" rel="stylesheet" href="/Brotherhood/faces/style/principal.css" />
+	</h:head>
+
+	<body>
+		<ui:include src="../../menu.xhtml" />
+		<div id="conteudo">
+			<h:form prependId="false">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<h:panelGroup id="camposCadastro">
+					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
+						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.preferencia.id}">
+							<h:panelGrid columns="2" style="margin-bottom:10px">
+								<h:outputText for="id" value="Id:" />
+								<p:inputText id="id" value="#{preferenciaCadastroBean.preferencia.id}" disabled="true"/>
+							</h:panelGrid>
+						</h:panelGroup>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="titulo" value="titulo :" />
+							<p:inputText id="titulo" value="#{preferenciaCadastroBean.preferencia.titulo}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="descricao" value="descrição :" />
+							<p:inputText id="descricao" value="#{preferenciaCadastroBean.preferencia.descricao}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<p:commandButton 
+											styleClass="button" 
+											id="commit" 
+											update="camposCadastro" 
+											actionListener="#{preferenciaCadastroBean.salvar()}" 
+											ajax="true" 
+											value="Salvar"/>
+											
+						   <p:commandButton styleClass="button" 
+											 id="cancelarBTN" 
+											 actionListener="#{preferenciaCadastroBean.construirPreferencia()}" 
+											 ajax="false" 
+											 value="Cancelar"/>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:panelGroup>
+				
+    		</h:form>
+		</div>
+	</body>
+	
+</html>
