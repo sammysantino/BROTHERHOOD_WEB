@@ -25,13 +25,41 @@
 						</h:panelGroup>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="titulo" value="titulo :" />
+							<h:outputText for="categorias" value="Categoria :" />
+							<p:selectOneMenu id="categoriasSOM" 
+											 value="#{preferenciaCadastroBean.idCategoria}">
+								<f:selectItem itemLabel="Selecione" 
+											  noSelectionOption="true"/>
+								<f:selectItems value="#{preferenciaCadastroBean.categorias}"
+											   var="categoria" 
+											   itemValue="#{categoria.id}"
+											   itemLabel="#{categoria.descricao}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="titulo" value="Título:" />
 							<p:inputText id="titulo" value="#{preferenciaCadastroBean.preferencia.titulo}" />
 						</h:panelGrid>
+						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="descricao" value="descrição :" />
+							<h:outputText for="descricao" value="Descrição:" />
 							<p:inputText id="descricao" value="#{preferenciaCadastroBean.preferencia.descricao}" />
 						</h:panelGrid>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="tiposPreferenciasSOM" value="Tipo:" />
+							<p:selectOneMenu id="tiposPreferenciasSOM" 
+											 value="#{preferenciaCadastroBean.tipoPreferencia}">
+								<f:selectItem itemLabel="Selecione" 
+											  noSelectionOption="true"/>
+								<f:selectItems value="#{preferenciaCadastroBean.tiposPreferencias}"
+											   var="tipoPreferencia" 
+											   itemValue="#{tipoPreferencia}"
+											   itemLabel="#{tipoPreferencia.descricao}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
 											styleClass="button" 

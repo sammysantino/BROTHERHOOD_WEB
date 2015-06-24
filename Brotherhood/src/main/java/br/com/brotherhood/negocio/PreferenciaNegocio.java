@@ -10,7 +10,7 @@ import br.com.brotherhood.entidade.ValidacaoException;
 
 public class PreferenciaNegocio {
 	
-	private PreferenciaDao preferenciaDao = new PreferenciaDao();
+	private final PreferenciaDao preferenciaDao = new PreferenciaDao();
 
 	public void salvar(Preferencia preferencia) throws NegocioException, ValidacaoException {
 		try {
