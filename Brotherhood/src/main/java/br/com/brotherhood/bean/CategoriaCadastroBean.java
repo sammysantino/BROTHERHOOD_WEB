@@ -35,8 +35,13 @@ public class CategoriaCadastroBean extends BaseBean {
 	
 	public void salvar() {
 		try {
-			categoriaNegocio.salvar(categoria);
-			makeInfoMessage("Categoria cadastrada com sucesso!", "");
+			if (categoria.getId() == null) {
+				categoriaNegocio.salvar(categoria);
+				makeInfoMessage("Categoria cadastrada com sucesso!", "");
+			} else {
+				categoriaNegocio.alterar(categoria);
+				makeInfoMessage("Categoria editada com sucesso!", "");
+			}
 		} catch (NegocioException e) {
 			e.printStackTrace();
 			makeWarnMessage(e.getMessage(), "ERRO");
@@ -46,15 +51,27 @@ public class CategoriaCadastroBean extends BaseBean {
 	}
 	
 	public void editar(Categoria categoriaSelecionada) {
-		
+		this.categoria = categoriaSelecionada;
 	}
 	
 	public void ativar(Categoria categoriaSelecionada) {
-		
+		try {
+			categoriaNegocio.ativar(categoriaSelecionada);
+			makeInfoMessage("Categoria ativada com sucesso!", "");
+		} catch (NegocioException e) {
+			e.printStackTrace();
+			makeWarnMessage(e.getMessage(), "ERRO");
+		}
 	}
 	
 	public void inativar(Categoria categoriaSelecionada) {
-		
+		try {
+			categoriaNegocio.inativar(categoriaSelecionada);
+			makeInfoMessage("Categoria inativada com sucesso!", "");
+		} catch (NegocioException e) {
+			e.printStackTrace();
+			makeWarnMessage(e.getMessage(), "ERRO");
+		}
 	}
 	
 	public Categoria getCategoria() {
