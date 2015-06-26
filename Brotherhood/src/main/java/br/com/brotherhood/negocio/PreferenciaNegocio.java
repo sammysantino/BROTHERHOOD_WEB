@@ -1,7 +1,6 @@
 package br.com.brotherhood.negocio;
 
 import java.util.List;
-
 import br.com.brotherhood.dao.DaoException;
 import br.com.brotherhood.dao.PreferenciaDao;
 import br.com.brotherhood.entidade.ESituacao;
@@ -15,7 +14,13 @@ public class PreferenciaNegocio {
 	public void salvar(Preferencia preferencia) throws NegocioException, ValidacaoException {
 		try {
 			preferencia.validar();
-			preferenciaDao.salvar(preferencia);
+			if (preferencia.getId() == null) {
+				preferenciaDao.salvar(preferencia);
+			} else {
+				OpcaoNegocio opcaoNegocio = new OpcaoNegocio();
+				opcaoNegocio.deletarPorPreferencia(preferencia);
+				preferenciaDao.alterar(preferencia);
+			}
 		} catch (DaoException e) {
 			throw new NegocioException(e.getMessage());
 		} 

@@ -16,62 +16,41 @@
 			<h:form prependId="false">
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 				<h:panelGroup id="camposCadastro">
-					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
-						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.preferencia.id}">
+					<p:fieldset legend="#{(empty usuarioBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Preferência"  style="margin-bottom: 10px;">
+						<h:panelGroup rendered="#{not empty usuarioBean.preferencia.id}">
 							<h:panelGrid columns="2" style="margin-bottom:10px">
 								<h:outputText for="id" value="Id:" />
-								<p:inputText id="id" value="#{preferenciaCadastroBean.preferencia.id}" disabled="true"/>
+								<p:inputText id="id" value="#{usuarioBean.preferencia.id}" disabled="true"/>
 							</h:panelGrid>
 						</h:panelGroup>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="categorias" value="Categoria :" />
-							<p:selectOneMenu id="categoriasSOM" 
-											 value="#{preferenciaCadastroBean.idCategoria}">
-								<f:selectItem itemLabel="Selecione" 
-											  noSelectionOption="true"/>
-								<f:selectItems value="#{preferenciaCadastroBean.categorias}"
-											   var="categoria" 
-											   itemValue="#{categoria.id}"
-											   itemLabel="#{categoria.descricao}" />
-							</p:selectOneMenu>
+							<h:outputText for="nome" value="Nome:" />
+							<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
 						</h:panelGrid>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="titulo" value="Título:" />
-							<p:inputText id="titulo" value="#{preferenciaCadastroBean.preferencia.titulo}" />
+							<h:outputText for="login" value="Login:" />
+							<p:inputText id="login" value="#{usuarioBean.usuario.login}" />
 						</h:panelGrid>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="descricao" value="Descrição:" />
-							<p:inputText id="descricao" value="#{preferenciaCadastroBean.preferencia.descricao}" />
+							<h:outputText for="senha" value="Login:" />
+							<p:password id="senha" value="#{usuarioBean.usuario.senha}" />
 						</h:panelGrid>
 						
-						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="tiposPreferenciasSOM" value="Tipo:" />
-							<p:selectOneMenu id="tiposPreferenciasSOM" 
-											 value="#{preferenciaCadastroBean.tipoPreferencia}">
-								<f:selectItem itemLabel="Selecione" 
-											  noSelectionOption="true"/>
-								<f:selectItems value="#{preferenciaCadastroBean.tiposPreferencias}"
-											   var="tipoPreferencia" 
-											   itemValue="#{tipoPreferencia}"
-											   itemLabel="#{tipoPreferencia.descricao}" />
-							</p:selectOneMenu>
-						</h:panelGrid>
-
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
 											styleClass="button" 
 											id="commit" 
 											update="camposCadastro" 
-											actionListener="#{preferenciaCadastroBean.salvar()}" 
+											actionListener="#{usuarioBean.salvar()}" 
 											ajax="true" 
 											value="Salvar"/>
 											
 						   <p:commandButton styleClass="button" 
 											 id="cancelarBTN" 
-											 actionListener="#{preferenciaCadastroBean.construirPreferencia()}" 
+											 actionListener="#{usuarioBean.novoUsuario()}" 
 											 ajax="false" 
 											 value="Cancelar"/>
 						</h:panelGrid>

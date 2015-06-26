@@ -17,4 +17,16 @@ public class BaseDao {
 			throw new DaoException(e.getMessage());
 		}
 	}
+	
+	public <T> void alterar(T t) throws DaoException  {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+	        session.beginTransaction();
+	        session.update(t);
+	        session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException(e.getMessage());
+		}
+	}
 }

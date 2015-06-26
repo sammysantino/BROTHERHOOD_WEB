@@ -37,7 +37,7 @@ public class Preferencia implements Serializable {
 	@JoinColumn(name = "_categoria")
 	private Categoria categoria;
 	
-	@OneToMany(mappedBy = "preferencia", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "preferencia", cascade = CascadeType.MERGE)
 	private List<Opcao> opcoes;
 
 	public Integer getId() {

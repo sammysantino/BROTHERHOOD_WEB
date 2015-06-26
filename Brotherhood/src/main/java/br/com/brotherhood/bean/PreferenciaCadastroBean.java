@@ -1,12 +1,16 @@
 package br.com.brotherhood.bean;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import br.com.brotherhood.entidade.Categoria;
 import br.com.brotherhood.entidade.ESituacao;
 import br.com.brotherhood.entidade.ETipoPreferencia;
+import br.com.brotherhood.entidade.Opcao;
 import br.com.brotherhood.entidade.Preferencia;
 import br.com.brotherhood.entidade.ValidacaoException;
 import br.com.brotherhood.negocio.NegocioException;
@@ -25,6 +29,8 @@ public class PreferenciaCadastroBean extends BaseBean {
 	private List<Categoria> categorias;
 	private ETipoPreferencia[] tiposPreferencias;
 	private ETipoPreferencia tipoPreferencia;
+	private Opcao opcao;
+	private List<Opcao> opcoes;
 	
 	@PostConstruct
 	public void inicializar() {
@@ -32,8 +38,14 @@ public class PreferenciaCadastroBean extends BaseBean {
 		carregarPreferencias();
 		carregarCategorias();
 		carregarTiposPreferencias();
+		carregarOpcoes();
 	}
 	
+	private void carregarOpcoes() {
+		opcao = new Opcao();
+		opcoes = new ArrayList<Opcao>();
+	}
+
 	private void carregarTiposPreferencias() {
 		tiposPreferencias = ETipoPreferencia.values();
 	}
@@ -60,6 +72,7 @@ public class PreferenciaCadastroBean extends BaseBean {
 	
 	public void salvar() {
 		try {
+			preferencia.setOpcoes(opcoes);
 			preferenciaNegocio.salvar(preferencia);
 			inicializar();
 			makeInfoMessage("Preferência cadastrada com sucesso!", "");
@@ -69,6 +82,16 @@ public class PreferenciaCadastroBean extends BaseBean {
 		} catch (ValidacaoException e) {
 			makeWarnMessage(e.getMessage(),"");
 		}
+	}
+	
+	public void adicionarOpcao() {
+		opcao.setPreferencia(preferencia);
+		opcoes.add(opcao);
+		opcao = new Opcao();
+	}
+	
+	public void removerOpcao(Opcao opcao) {
+		opcoes.remove(opcao);
 	}
 
 	public Preferencia getPreferencia() {
@@ -101,5 +124,13 @@ public class PreferenciaCadastroBean extends BaseBean {
 
 	public void setTipoPreferencia(ETipoPreferencia tipoPreferencia) {
 		this.tipoPreferencia = tipoPreferencia;
+	}
+
+	public Opcao getOpcao() {
+		return opcao;
+	}
+
+	public List<Opcao> getOpcoes() {
+		return opcoes;
 	}
 }
