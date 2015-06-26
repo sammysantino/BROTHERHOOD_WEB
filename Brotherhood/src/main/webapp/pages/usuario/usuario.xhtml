@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" >
+
+	<h:head>
+		<link type="text/css" rel="stylesheet" href="/Brotherhood/faces/style/principal.css" />
+	</h:head>
+
+	<body>
+		<ui:include src="../../menu.xhtml" />
+		<div id="conteudo">
+			<h:form prependId="false">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<h:panelGroup id="camposCadastro">
+					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Preferência"  style="margin-bottom: 10px;">
+						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.preferencia.id}">
+							<h:panelGrid columns="2" style="margin-bottom:10px">
+								<h:outputText for="id" value="Id:" />
+								<p:inputText id="id" value="#{preferenciaCadastroBean.preferencia.id}" disabled="true"/>
+							</h:panelGrid>
+						</h:panelGroup>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="categorias" value="Categoria :" />
+							<p:selectOneMenu id="categoriasSOM" 
+											 value="#{preferenciaCadastroBean.idCategoria}">
+								<f:selectItem itemLabel="Selecione" 
+											  noSelectionOption="true"/>
+								<f:selectItems value="#{preferenciaCadastroBean.categorias}"
+											   var="categoria" 
+											   itemValue="#{categoria.id}"
+											   itemLabel="#{categoria.descricao}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="titulo" value="Título:" />
+							<p:inputText id="titulo" value="#{preferenciaCadastroBean.preferencia.titulo}" />
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="descricao" value="Descrição:" />
+							<p:inputText id="descricao" value="#{preferenciaCadastroBean.preferencia.descricao}" />
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="tiposPreferenciasSOM" value="Tipo:" />
+							<p:selectOneMenu id="tiposPreferenciasSOM" 
+											 value="#{preferenciaCadastroBean.tipoPreferencia}"
+											 required="true"
+											 requiredMessage="Informe o tipo de resposta para a preferência.">
+								<f:selectItem itemLabel="Selecione" 
+											  noSelectionOption="true"/>
+								<f:selectItems value="#{preferenciaCadastroBean.tiposPreferencias}"
+											   var="tipoPreferencia" 
+											   itemValue="#{tipoPreferencia}"
+											   itemLabel="#{tipoPreferencia.descricao}" />
+							    <p:ajax event="change" update="opcoesPG" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						
+						<!-- Opções da Preferência -->
+						<h:panelGroup id="opcoesPG">
+							<p:accordionPanel rendered="#{preferenciaCadastroBean.tipoPreferencia.possuiOpcoes}">
+				        		<p:tab title="Opções">
+				        			<h:panelGrid columns="2" style="margin-bottom:10px">
+										<h:outputText for="tituloOpcao" value="Opção:" />
+										<p:inputText id="tituloOpcao" value="#{preferenciaCadastroBean.opcao.titulo}" />
+									</h:panelGrid>
+									
+									<p:commandButton 
+											styleClass="button" 
+											id="adicionaropcaoBTN" 
+											update="opcoesPG" 
+											actionListener="#{preferenciaCadastroBean.adicionarOpcao()}" 
+											ajax="true" 
+											value="Adicionar Opção"/>
+											
+									<ui:repeat var="opcao" value="#{preferenciaCadastroBean.opcoes}">		
+										<h:outputText value="#{opcao.titulo} " />
+									</ui:repeat>
+				        		</p:tab>
+			        		</p:accordionPanel>
+		        		</h:panelGroup>
+						
+
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<p:commandButton 
+											styleClass="button" 
+											id="commit" 
+											update="camposCadastro" 
+											actionListener="#{preferenciaCadastroBean.salvar()}" 
+											ajax="true" 
+											value="Salvar"/>
+											
+						   <p:commandButton styleClass="button" 
+											 id="cancelarBTN" 
+											 actionListener="#{preferenciaCadastroBean.construirPreferencia()}" 
+											 ajax="false" 
+											 value="Cancelar"/>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:panelGroup>
+				
+    		</h:form>
+		</div>
+	</body>
+	
+</html>
