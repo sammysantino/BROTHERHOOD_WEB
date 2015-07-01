@@ -67,7 +67,7 @@
 									<h:outputText for="tituloOpcao" value="Opção: " />
 									<p:inputText id="tituloOpcao" value="#{preferenciaCadastroBean.opcao.titulo}" />
 									<h:commandLink value="Adicionar Opção" >
-										<p:ajax event="click" listener="#{preferenciaCadastroBean.adicionarOpcao}" update="opcoesPG"/>
+										<p:ajax event="click" process="opcoesPG" listener="#{preferenciaCadastroBean.adicionarOpcao()}" update="opcoesPG"/>
 									</h:commandLink>
 								</h:panelGrid>
 								
