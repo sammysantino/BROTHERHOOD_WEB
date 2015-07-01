@@ -27,15 +27,46 @@
 								<ui:repeat var="preferencia" value="#{categoria.preferencias}">
 									<h:outputText value="#{preferencia.titulo}" />
 									<h:outputText value="#{preferencia.descricao}" />
-									<h:panelGrid columns="2" style="margin-bottom:10px">
-										
+									
+									<h:panelGrid columns="4" style="margin-bottom:10px" rendered="#{preferencia.tipoPreferencia eq 'MULTIPLA_ESCOLHA'}">
+										<p:selectManyCheckbox value="#{preferencia.idsOpcoesSelecionadas}"  layout="grid" columns="4">
+								            <f:selectItems value="#{preferencia.opcoes}" 
+												           var="opcao" 
+												           itemValue="#{opcao.id}"
+												           itemLabel="#{opcao.titulo}" />
+								        </p:selectManyCheckbox>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="1" style="margin-bottom:10px" rendered="#{preferencia.tipoPreferencia eq 'UNICA_ESCOLHA_COMBO'}">
+										<p:selectOneMenu value="#{preferencia.idOpcaoSelecionada}">
+								            <f:selectItems value="#{preferencia.opcoes}" 
+												           var="opcao" 
+												           itemValue="#{opcao.id}"
+												           itemLabel="#{opcao.titulo}" />
+								        </p:selectOneMenu>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="1" style="margin-bottom:10px" rendered="#{preferencia.tipoPreferencia eq 'UNICA_ESCOLHA_RADIO'}">
+								        <p:selectOneRadio value="#{preferencia.idOpcaoSelecionada}"  layout="grid" columns="4">
+								            <f:selectItems value="#{preferencia.opcoes}" 
+												           var="opcao" 
+												           itemValue="#{opcao.id}"
+												           itemLabel="#{opcao.titulo}" />
+								        </p:selectOneRadio>
+									</h:panelGrid>
+									
+									<h:panelGrid columns="1" style="margin-bottom:10px" rendered="#{preferencia.tipoPreferencia eq 'SUBJETIVA_TEXTO'}">
+										<p:inputText value="#{preferencia.respostaTexto}" />
+									</h:panelGrid>
+									
+									<h:panelGrid columns="1" style="margin-bottom:10px" rendered="#{preferencia.tipoPreferencia eq 'SUBJETIVA_INTEIRO'}">
+										<p:inputText value="#{preferencia.respostaNumero}" />
 									</h:panelGrid>
 								</ui:repeat>
-		
+								
 							</p:fieldset>
 						</h:panelGroup>
 					</ui:repeat>
-					
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 

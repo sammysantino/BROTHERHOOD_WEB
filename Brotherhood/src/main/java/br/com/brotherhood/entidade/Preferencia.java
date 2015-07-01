@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="preferencia")
@@ -39,6 +40,15 @@ public class Preferencia implements Serializable {
 	
 	@OneToMany(mappedBy = "preferencia", cascade = CascadeType.MERGE)
 	private List<Opcao> opcoes;
+	
+	@Transient
+	private List<String> idsOpcoesSelecionadas;
+	@Transient
+	private Integer idOpcaoSelecionada;
+	@Transient
+	private String respostaTexto;
+	@Transient
+	private Integer respostaNumero;
 
 	public Integer getId() {
 		return id;
@@ -99,6 +109,38 @@ public class Preferencia implements Serializable {
 	public void setOpcoes(List<Opcao> opcoes) {
 		this.opcoes = opcoes;
 	}
+	
+	public List<String> getIdsOpcoesSelecionadas() {
+		return idsOpcoesSelecionadas;
+	}
+
+	public void setIdsOpcoesSelecionadas(List<String> idsOpcoesSelecionadas) {
+		this.idsOpcoesSelecionadas = idsOpcoesSelecionadas;
+	}
+
+	public Integer getIdOpcaoSelecionada() {
+		return idOpcaoSelecionada;
+	}
+
+	public void setIdOpcaoSelecionada(Integer idOpcaoSelecionada) {
+		this.idOpcaoSelecionada = idOpcaoSelecionada;
+	}
+
+	public String getRespostaTexto() {
+		return respostaTexto;
+	}
+
+	public void setRespostaTexto(String respostaTexto) {
+		this.respostaTexto = respostaTexto;
+	}
+
+	public Integer getRespostaNumero() {
+		return respostaNumero;
+	}
+
+	public void setRespostaNumero(Integer respostaNumero) {
+		this.respostaNumero = respostaNumero;
+	}
 
 	@Override
 	public int hashCode() {
@@ -132,4 +174,5 @@ public class Preferencia implements Serializable {
 				+ tipoPreferencia + ", categoria=" + categoria + ", opcoes="
 				+ opcoes + "]";
 	}
+
 }

@@ -57,8 +57,27 @@
 											   var="tipoPreferencia" 
 											   itemValue="#{tipoPreferencia}"
 											   itemLabel="#{tipoPreferencia.descricao}" />
+								<p:ajax event="change" update="opcoesPG" />
 							</p:selectOneMenu>
 						</h:panelGrid>
+						
+						<h:panelGroup id="opcoesPG">
+							<h:panelGroup rendered="#{preferenciaCadastroBean.tipoPreferencia.possuiOpcoes}">
+								<h:panelGrid columns="2" style="margin-bottom:10px">
+									<h:outputText for="tituloOpcao" value="Opção: " />
+									<p:inputText id="tituloOpcao" value="#{preferenciaCadastroBean.opcao.titulo}" />
+									<h:commandLink value="Adicionar Opção" >
+										<p:ajax event="click" listener="#{preferenciaCadastroBean.adicionarOpcao}" update="opcoesPG"/>
+									</h:commandLink>
+								</h:panelGrid>
+								
+								<h:panelGrid columns="4" style="margin-bottom:10px"> 
+									<ui:repeat var="opcao" value="#{preferenciaCadastroBean.opcoes}">
+										<h:outputText value="#{opcao.titulo}" />
+									</ui:repeat>
+								</h:panelGrid>
+							</h:panelGroup>
+						</h:panelGroup>
 
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
