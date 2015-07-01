@@ -1,5 +1,7 @@
 package br.com.brotherhood.dao;
 
+import java.io.Serializable;
+
 import org.hibernate.Session;
 
 import br.com.brotherhood.hibernate.HibernateUtil;
@@ -12,6 +14,7 @@ public class BaseDao {
 	        session.beginTransaction();
 	        session.save(t);
 	        session.getTransaction().commit();
+	        session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException(e.getMessage());
@@ -24,6 +27,18 @@ public class BaseDao {
 	        session.beginTransaction();
 	        session.update(t);
 	        session.getTransaction().commit();
+	        session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException(e.getMessage());
+		}
+	}
+
+	public Object consultarPorId(Class clazz, Serializable id) throws DaoException {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+	        session.beginTransaction();
+	        return session.get(clazz, id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException(e.getMessage());

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" >
+
+	<h:head>
+		<link type="text/css" rel="stylesheet" href="/Brotherhood/faces/style/principal.css" />
+	</h:head>
+
+	<body>
+		<ui:include src="../../menu.xhtml" />
+		<div id="conteudo">
+			<h:form prependId="false">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				<h:panelGroup id="camposCadastro">
+				
+					<!-- categoria -->
+					<ui:repeat var="categoria" value="#{preferenciaUsuarioBean.categorias}">
+						<h:panelGroup rendered="#{not empty categoria.preferencias}">
+							<p:fieldset legend="#{categoria.titulo}" toggleable="true" toggleSpeed="500" style="margin-bottom: 10px;">
+								<h:outputText value="#{categoria.descricao}" />
+								
+								<!-- preferencia -->
+								<ui:repeat var="preferencia" value="#{categoria.preferencias}">
+									<h:outputText value="#{preferencia.titulo}" />
+									<h:outputText value="#{preferencia.descricao}" />
+									<h:panelGrid columns="2" style="margin-bottom:10px">
+										
+									</h:panelGrid>
+								</ui:repeat>
+		
+							</p:fieldset>
+						</h:panelGroup>
+					</ui:repeat>
+					
+						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<p:commandButton 
+											styleClass="button" 
+											id="commit" 
+											update="camposCadastro" 
+											actionListener="#{preferenciaUsuarioBean.salvar()}" 
+											ajax="true" 
+											value="Salvar"/>
+						</h:panelGrid>
+				</h:panelGroup>
+    		</h:form>
+		</div>
+	</body>
+</html>

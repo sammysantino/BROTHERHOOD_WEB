@@ -7,7 +7,7 @@ import br.com.brotherhood.entidade.ESituacao;
 import br.com.brotherhood.entidade.Preferencia;
 import br.com.brotherhood.entidade.ValidacaoException;
 
-public class PreferenciaNegocio {
+public class PreferenciaNegocio extends BaseNegocio<Preferencia> {
 	
 	private final PreferenciaDao preferenciaDao = new PreferenciaDao();
 

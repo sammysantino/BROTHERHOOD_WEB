@@ -20,6 +20,8 @@ import br.com.brotherhood.negocio.PreferenciaNegocio;
 @ManagedBean
 public class PreferenciaCadastroBean extends BaseBean {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private final PreferenciaNegocio preferenciaNegocio = new PreferenciaNegocio();
 	private final CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 	
@@ -74,7 +76,8 @@ public class PreferenciaCadastroBean extends BaseBean {
 		try {
 			preferencia.setOpcoes(opcoes);
 			preferenciaNegocio.salvar(preferencia);
-			inicializar();
+			construirPreferencia();
+			carregarPreferencias();
 			makeInfoMessage("Preferência cadastrada com sucesso!", "");
 		} catch (NegocioException e) {
 			e.printStackTrace();
@@ -92,6 +95,35 @@ public class PreferenciaCadastroBean extends BaseBean {
 	
 	public void removerOpcao(Opcao opcao) {
 		opcoes.remove(opcao);
+	}
+	
+	public void editar(Preferencia preferenciaSelecionada) {
+		try {
+			this.preferencia = preferenciaNegocio.obterPorId(preferenciaSelecionada.getId());
+		} catch (NegocioException e) {
+			e.printStackTrace();
+			makeWarnMessage(e.getMessage(), "ERRO");
+		}
+	}
+	
+	public void ativar(Preferencia preferenciaSelecionada) {
+//		try {
+//			preferenciaNegocio.ativar(preferenciaSelecionada);
+//			makeInfoMessage("Preferência ativada com sucesso!", "");
+//		} catch (NegocioException e) {
+//			e.printStackTrace();
+//			makeWarnMessage(e.getMessage(), "ERRO");
+//		}
+	}
+	
+	public void inativar(Preferencia preferenciaSelecionada) {
+//		try {
+//			preferenciaNegocio.inativar(preferenciaSelecionada);
+//			makeInfoMessage("Preferência inativada com sucesso!", "");
+//		} catch (NegocioException e) {
+//			e.printStackTrace();
+//			makeWarnMessage(e.getMessage(), "ERRO");
+//		}
 	}
 
 	public Preferencia getPreferencia() {

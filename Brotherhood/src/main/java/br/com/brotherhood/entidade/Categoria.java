@@ -1,6 +1,7 @@
 package br.com.brotherhood.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +26,9 @@ public class Categoria implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private ESituacao situacao = ESituacao.ATIVO;
+	
+	@OneToMany(mappedBy = "categoria")
+	private List<Preferencia> preferencias;
 	
 	public void validar() throws ValidacaoException {
 		if ((this.titulo == null) 
@@ -62,6 +67,14 @@ public class Categoria implements Serializable {
 
 	public void setSituacao(ESituacao situacao) {
 		this.situacao = situacao;
+	}
+	
+	public List<Preferencia> getPreferencias() {
+		return preferencias;
+	}
+
+	public void setPreferencias(List<Preferencia> preferencias) {
+		this.preferencias = preferencias;
 	}
 
 	@Override

@@ -75,4 +75,12 @@ public class CategoriaNegocio {
 			throw new NegocioException(e.getMessage());
 		}
 	}
+
+	public List<Categoria> obterTodosAtivosCompletos() throws NegocioException {
+		try {
+			return categoriaDao.consultarTodosAtivosCompletos();
+		} catch (DaoException e) {
+			throw new NegocioException(e.getMessage());
+		}
+	}
 }

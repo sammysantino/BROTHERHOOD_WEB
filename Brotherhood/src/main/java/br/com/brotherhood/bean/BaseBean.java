@@ -1,11 +1,14 @@
 package br.com.brotherhood.bean;
 
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
-class BaseBean {
+class BaseBean implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	protected void makeErrorMessage(String mensagem, String titulo) {
 		makeMessage(FacesMessage.SEVERITY_ERROR, mensagem, titulo);
 	}

@@ -28,7 +28,7 @@ public class Preferencia implements Serializable {
 	private String descricao;
 	
 	@Enumerated(EnumType.STRING)
-	private ESituacao situacao;
+	private ESituacao situacao = ESituacao.ATIVO;
 	
 	@Enumerated(EnumType.STRING)
 	private ETipoPreferencia tipoPreferencia;

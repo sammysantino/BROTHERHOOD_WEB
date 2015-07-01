@@ -16,46 +16,101 @@
 			<h:form prependId="false">
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 				<h:panelGroup id="camposCadastro">
-					<p:fieldset legend="#{(empty usuarioBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Preferência"  style="margin-bottom: 10px;">
-						<h:panelGroup rendered="#{not empty usuarioBean.preferencia.id}">
+					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
+						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.preferencia.id}">
 							<h:panelGrid columns="2" style="margin-bottom:10px">
 								<h:outputText for="id" value="Id:" />
-								<p:inputText id="id" value="#{usuarioBean.preferencia.id}" disabled="true"/>
+								<p:inputText id="id" value="#{preferenciaCadastroBean.preferencia.id}" disabled="true"/>
 							</h:panelGrid>
 						</h:panelGroup>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="nome" value="Nome:" />
-							<p:inputText id="nome" value="#{usuarioBean.usuario.nome}" />
+							<h:outputText for="categorias" value="Categoria :" />
+							<p:selectOneMenu id="categoriasSOM" 
+											 value="#{preferenciaCadastroBean.idCategoria}">
+								<f:selectItem itemLabel="Selecione" 
+											  noSelectionOption="true"/>
+								<f:selectItems value="#{preferenciaCadastroBean.categorias}"
+											   var="categoria" 
+											   itemValue="#{categoria.id}"
+											   itemLabel="#{categoria.titulo}" />
+							</p:selectOneMenu>
 						</h:panelGrid>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="login" value="Login:" />
-							<p:inputText id="login" value="#{usuarioBean.usuario.login}" />
+							<h:outputText for="titulo" value="Título:" />
+							<p:inputText id="titulo" value="#{preferenciaCadastroBean.preferencia.titulo}" />
 						</h:panelGrid>
 						
 						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<h:outputText for="senha" value="Login:" />
-							<p:password id="senha" value="#{usuarioBean.usuario.senha}" />
+							<h:outputText for="descricao" value="Descrição:" />
+							<p:inputText id="descricao" value="#{preferenciaCadastroBean.preferencia.descricao}" />
 						</h:panelGrid>
 						
+						<h:panelGrid columns="2" style="margin-bottom:10px">
+							<h:outputText for="tiposPreferenciasSOM" value="Tipo:" />
+							<p:selectOneMenu id="tiposPreferenciasSOM" 
+											 value="#{preferenciaCadastroBean.tipoPreferencia}">
+								<f:selectItem itemLabel="Selecione" 
+											  noSelectionOption="true"/>
+								<f:selectItems value="#{preferenciaCadastroBean.tiposPreferencias}"
+											   var="tipoPreferencia" 
+											   itemValue="#{tipoPreferencia}"
+											   itemLabel="#{tipoPreferencia.descricao}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+
 						<h:panelGrid columns="2" style="margin-bottom:10px">
 							<p:commandButton 
 											styleClass="button" 
 											id="commit" 
 											update="camposCadastro" 
-											actionListener="#{usuarioBean.salvar()}" 
+											actionListener="#{preferenciaCadastroBean.salvar()}" 
 											ajax="true" 
 											value="Salvar"/>
 											
 						   <p:commandButton styleClass="button" 
 											 id="cancelarBTN" 
-											 actionListener="#{usuarioBean.novoUsuario()}" 
+											 actionListener="#{preferenciaCadastroBean.construirPreferencia()}" 
 											 ajax="false" 
 											 value="Cancelar"/>
 						</h:panelGrid>
 					</p:fieldset>
 				</h:panelGroup>
+				
+				<p:fieldset legend="Listagem de Preferências" toggleable="true" toggleSpeed="500">
+        			<p:dataTable id="tabelaPreferencias" 
+			        			 var="preferencia" 
+			        			 value="#{preferenciaCadastroBean.preferencias}" 
+			        			 rowIndexVar="i" 
+			        			 emptyMessage="Nenhuma prefrência cadastrada">
+			        			 
+					    <p:column headerText="Id">
+					        <h:outputText value="#{preferencia.id}" />
+					    </p:column>
+					    <p:column headerText="titulo">
+					        <h:outputText value="#{preferencia.titulo}" />
+					    </p:column>
+					    
+					    <p:column headerText="Opções">
+					        <p:commandLink 	disabled="#{preferencia.situacao eq 'INATIVO'}"
+					        				action="#{preferenciaCadastroBean.editar(preferencia)}" 
+					        				update="camposCadastro" 
+					        				value="Editar" 
+					        				style="margin-right: 10px;"/>
+					        				
+					        <p:commandLink  rendered="#{preferencia.situacao eq 'ATIVO'}"
+					        				action="#{preferenciaCadastroBean.inativar(preferencia)}" 
+					        				update="tabelaPreferencias" 
+					        				value="Inativar" />
+					        				
+   					        <p:commandLink  rendered="#{preferencia.situacao eq 'INATIVO'}"
+					        				action="#{preferenciaCadastroBean.ativar(preferencia)}" 
+					        				update="tabelaCategorias" 
+					        				value="Reativar" />
+					    </p:column>
+					</p:dataTable>
+	    		</p:fieldset>
 				
     		</h:form>
 		</div>
