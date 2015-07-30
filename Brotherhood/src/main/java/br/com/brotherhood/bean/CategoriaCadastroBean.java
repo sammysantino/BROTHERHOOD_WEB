@@ -13,6 +13,8 @@ import br.com.brotherhood.negocio.NegocioException;
 @ManagedBean
 public class CategoriaCadastroBean extends BaseBean {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 	private Categoria categoria;
 	private List<Categoria> categorias;

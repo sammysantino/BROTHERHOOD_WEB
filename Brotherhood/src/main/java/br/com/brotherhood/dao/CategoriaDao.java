@@ -41,12 +41,11 @@ public class CategoriaDao extends BaseDao {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT c ");
 			sql.append("FROM Categoria c ");
-			sql.append("WHERE c.situacao =:_situacao ");
+			sql.append("WHERE c.situacao = 'ATIVO' ");
 			sql.append("ORDER BY c.titulo ");
 			
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			List<Categoria> categorias = session.createQuery(sql.toString())
-					.setParameter("_situacao", ESituacao.ATIVO)
 					.list();
 			
 			for (Categoria categoria : categorias) {

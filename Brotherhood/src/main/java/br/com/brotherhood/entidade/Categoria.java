@@ -2,7 +2,6 @@ package br.com.brotherhood.entidade;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,6 +29,15 @@ public class Categoria implements Serializable {
 	@OneToMany(mappedBy = "categoria")
 	private List<Preferencia> preferencias;
 	
+
+	public Categoria() {
+		
+	}
+	
+	public Categoria(Integer id) {
+		this.id = id;
+	}
+
 	public void validar() throws ValidacaoException {
 		if ((this.titulo == null) 
 				|| (this.titulo.isEmpty())) {

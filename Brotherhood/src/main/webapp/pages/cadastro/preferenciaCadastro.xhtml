@@ -16,7 +16,7 @@
 			<h:form prependId="false">
 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 				<h:panelGroup id="camposCadastro">
-					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Categoria"  style="margin-bottom: 10px;">
+					<p:fieldset legend="#{(empty preferenciaCadastroBean.preferencia.id) ? 'Cadastro' : 'Edição'} de Preferência"  style="margin-bottom: 10px;">
 						<h:panelGroup rendered="#{not empty preferenciaCadastroBean.preferencia.id}">
 							<h:panelGrid columns="2" style="margin-bottom:10px">
 								<h:outputText for="id" value="Id:" />
@@ -134,5 +134,4 @@
     		</h:form>
 		</div>
 	</body>
-	
 </html>

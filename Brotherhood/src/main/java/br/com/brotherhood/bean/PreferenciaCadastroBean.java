@@ -74,6 +74,7 @@ public class PreferenciaCadastroBean extends BaseBean {
 	
 	public void salvar() {
 		try {
+			preferencia.setCategoria(new Categoria(idCategoria));
 			preferencia.setOpcoes(opcoes);
 			preferenciaNegocio.salvar(preferencia);
 			construirPreferencia();
